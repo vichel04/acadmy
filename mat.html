@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAT Academy — Formations Professionnelles en Gestion de Projet</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ebene:#0d1117;--ebene-mid:#1a2230;--ebene-light:#243045;
+  --or:#b8902e;--or-vif:#d4a843;--or-pale:#e8c878;--or-bg:rgba(184,144,46,.08);
+  --ivoire:#f8f3ea;--sable:#ede5d4;--sable-mid:#d9ceba;
+  --blanc:#ffffff;--gris:#8a8f99;--gris-clair:#f2ede4;
+  --rouge:#8b2020;--vert:#1a5c3a;
+  --font-serif:'Cormorant Garamond',serif;
+  --font-sans:'DM Sans',sans-serif;
+  --font-mono:'DM Mono',monospace;
+  --radius:4px;
+  --shadow-sm:0 2px 12px rgba(13,17,23,.08);
+  --shadow-md:0 8px 32px rgba(13,17,23,.14);
+  --shadow-lg:0 24px 80px rgba(13,17,23,.22);
+  --shadow-gold:0 8px 32px rgba(184,144,46,.3);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-sans);background:var(--ivoire);color:var(--ebene);overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+button{font-family:var(--font-sans);cursor:pointer;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--or);border-radius:3px;}
+
+/* UTILS */
+.section-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--or-vif);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-eyebrow::before{content:'';width:24px;height:1px;background:var(--or-vif);}
+.section-heading{font-family:var(--font-serif);font-size:clamp(32px,4vw,52px);font-weight:600;line-height:1.15;}
+.section-heading em{font-style:italic;color:var(--or);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.5);}}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* NAVBAR */
+.navbar{position:sticky;top:0;z-index:500;background:rgba(13,17,23,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,144,46,.15);padding:0 40px;}
+.nav-inner{max-width:1140px;margin:auto;height:66px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-mark{width:36px;height:36px;border-radius:3px;background:var(--or);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:16px;font-weight:700;color:var(--ebene);}
+.logo-text{font-family:var(--font-serif);font-size:19px;font-weight:600;color:var(--blanc);}
+.logo-text span{color:var(--or-pale);}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:13px;font-weight:500;color:rgba(255,255,255,.65);transition:color .2s;}
+.nav-links a:hover{color:var(--or-pale);}
+.nav-cta{background:var(--or);color:var(--ebene);border:none;padding:9px 20px;border-radius:var(--radius);font-size:13px;font-weight:600;transition:all .2s;}
+.nav-cta:hover{background:var(--or-vif);transform:translateY(-1px);box-shadow:var(--shadow-gold);}
+
+/* HERO */
+.hero{background:var(--ebene);position:relative;overflow:hidden;padding:100px 40px 90px;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 85% 40%,rgba(184,144,46,.1) 0%,transparent 65%);pointer-events:none;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,144,46,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,144,46,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.hero-inner{position:relative;z-index:1;max-width:1140px;margin:auto;display:grid;grid-template-columns:1fr 400px;gap:72px;align-items:center;}
+.hero-kicker{display:inline-flex;align-items:center;gap:10px;background:var(--or-bg);border:1px solid rgba(184,144,46,.25);color:var(--or-pale);font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:6px 14px;border-radius:2px;margin-bottom:28px;}
+.kicker-dot{width:6px;height:6px;background:var(--or-vif);border-radius:50%;animation:pulse 2.5s infinite;}
+.hero h1{font-family:var(--font-serif);font-size:clamp(36px,4.5vw,58px);font-weight:600;color:var(--blanc);line-height:1.12;margin-bottom:24px;}
+.hero h1 em{color:var(--or-pale);font-style:italic;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:40px;max-width:500px;}
+.hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.btn-primary{background:var(--or);color:var(--ebene);border:none;padding:13px 26px;border-radius:var(--radius);font-size:14px;font-weight:700;transition:all .25s;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary:hover{background:var(--or-vif);transform:translateY(-2px);box-shadow:var(--shadow-gold);}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);padding:12px 24px;border-radius:var(--radius);font-size:14px;font-weight:500;transition:all .25s;display:inline-flex;align-items:center;gap:8px;}
+.btn-ghost:hover{border-color:var(--or);color:var(--or-pale);}
+.hero-stats{display:flex;gap:36px;margin-top:52px;padding-top:36px;border-top:1px solid rgba(255,255,255,.08);}
+.stat-val{font-family:var(--font-serif);font-size:32px;font-weight:700;color:var(--or-pale);line-height:1;}
+.stat-lbl{font-size:12px;color:rgba(255,255,255,.4);margin-top:5px;}
+
+/* HERO PANEL */
+.hero-panel{background:rgba(255,255,255,.04);border:1px solid rgba(184,144,46,.2);border-radius:6px;overflow:hidden;}
+.hero-panel-header{background:linear-gradient(135deg,var(--or) 0%,var(--or-vif) 100%);padding:20px 24px;}
+.hero-panel-header h3{font-family:var(--font-serif);font-size:18px;font-weight:600;color:var(--ebene);}
+.hero-panel-header p{font-size:12px;color:rgba(13,17,23,.65);margin-top:3px;}
+.hero-panel-body{padding:18px 20px;display:flex;flex-direction:column;gap:8px;}
+.panel-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(184,144,46,.12);border-radius:var(--radius);cursor:pointer;transition:all .2s;color:var(--blanc);font-size:13px;text-align:left;width:100%;}
+.panel-item:hover{background:rgba(184,144,46,.12);border-color:rgba(184,144,46,.4);transform:translateX(4px);}
+.panel-item-name{flex:1;font-weight:500;}
+.panel-item-price{font-family:var(--font-mono);font-size:11px;color:var(--or-pale);white-space:nowrap;}
+.panel-sep{height:1px;background:rgba(184,144,46,.15);margin:4px 0;}
+.panel-rdv{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:rgba(184,144,46,.08);border:1px dashed rgba(184,144,46,.3);border-radius:var(--radius);cursor:pointer;color:var(--or-pale);font-size:13px;font-weight:600;transition:all .2s;width:100%;}
+.panel-rdv:hover{background:rgba(184,144,46,.18);border-color:var(--or);}
+
+/* CERTS */
+.certs-strip{background:var(--sable);border-bottom:1px solid var(--sable-mid);padding:18px 40px;}
+.certs-inner{max-width:1140px;margin:auto;display:flex;align-items:center;gap:36px;flex-wrap:wrap;}
+.certs-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--gris);text-transform:uppercase;white-space:nowrap;}
+.cert-item{font-size:12px;font-weight:600;color:var(--ebene-mid);display:flex;align-items:center;gap:6px;}
+.cert-star{color:var(--or);font-size:11px;}
+
+/* FORMATIONS */
+.formations-section{padding:100px 40px;background:var(--ivoire);}
+.formations-header{max-width:1140px;margin:0 auto 56px;display:grid;grid-template-columns:1fr 360px;gap:60px;align-items:end;}
+.formations-header-right{font-size:14px;color:var(--gris);line-height:1.8;}
+.formations-grid{max-width:1140px;margin:auto;display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+
+.fcard{background:var(--blanc);border:1px solid rgba(13,17,23,.08);border-radius:6px;overflow:hidden;cursor:pointer;transition:all .35s cubic-bezier(.34,1,.64,1);display:flex;flex-direction:column;}
+.fcard:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--or);}
+.fcard-ribbon{height:4px;background:linear-gradient(90deg,var(--or) 0%,var(--or-pale) 100%);}
+.fcard-inner{padding:28px 28px 20px;flex:1;}
+.fcard-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;}
+.fcard-icon{width:50px;height:50px;border-radius:4px;background:var(--or-bg);border:1px solid rgba(184,144,46,.2);display:flex;align-items:center;justify-content:center;font-size:24px;}
+.fcard-num{font-family:var(--font-mono);font-size:11px;color:var(--gris);background:var(--gris-clair);padding:4px 10px;border-radius:2px;}
+.fcard h3{font-family:var(--font-serif);font-size:20px;font-weight:600;color:var(--ebene);line-height:1.3;margin-bottom:10px;}
+.fcard-desc{font-size:13px;color:var(--gris);line-height:1.7;}
+.fcard-footer{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;background:var(--gris-clair);border-top:1px solid rgba(13,17,23,.06);}
+.fcard-meta{display:flex;gap:14px;}
+.fcard-meta span{font-family:var(--font-mono);font-size:11px;color:var(--gris);}
+.fcard-price{font-family:var(--font-serif);font-size:18px;font-weight:700;color:var(--or);}
+
+/* CONSEIL */
+.conseil-section{background:var(--ebene);padding:100px 40px;position:relative;overflow:hidden;}
+.conseil-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(184,144,46,.07),transparent);pointer-events:none;}
+.conseil-inner{position:relative;z-index:1;max-width:1140px;margin:auto;}
+.conseil-grid{display:grid;grid-template-columns:1fr 500px;gap:80px;align-items:start;}
+.conseil-left h2{color:var(--blanc);margin-bottom:20px;}
+.conseil-left>p{font-size:15px;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:36px;}
+.conseil-feats{display:flex;flex-direction:column;gap:22px;}
+.cfeat{display:flex;gap:16px;align-items:flex-start;}
+.cfeat-icon{width:42px;height:42px;flex-shrink:0;background:var(--or-bg);border:1px solid rgba(184,144,46,.2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.cfeat h4{font-family:var(--font-serif);font-size:16px;color:var(--blanc);margin-bottom:4px;}
+.cfeat p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.65;}
+
+/* RDV FORM */
+.rdv-card{background:var(--blanc);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-lg);}
+.rdv-head{background:linear-gradient(135deg,var(--or),var(--or-vif));padding:24px 28px;}
+.rdv-head h3{font-family:var(--font-serif);font-size:22px;font-weight:600;color:var(--ebene);}
+.rdv-head p{font-size:13px;color:rgba(13,17,23,.65);margin-top:4px;}
+.rdv-body{padding:28px;}
+.rdv-tabs{display:flex;gap:6px;margin-bottom:22px;}
+.rdv-tab{flex:1;padding:9px 6px;border:1.5px solid var(--sable-mid);border-radius:var(--radius);background:var(--gris-clair);font-size:11px;font-weight:600;color:var(--gris);cursor:pointer;transition:all .2s;text-align:center;}
+.rdv-tab.active{background:var(--ebene);color:var(--blanc);border-color:var(--ebene);}
+.rdv-tab:hover:not(.active){border-color:var(--or);color:var(--or);}
+.fg{margin-bottom:13px;}
+.fg label{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ebene-mid);margin-bottom:5px;}
+.req{color:var(--or);}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 13px;border:1.5px solid #ddd;border-radius:var(--radius);font-family:var(--font-sans);font-size:13px;color:var(--ebene);background:var(--blanc);transition:all .2s;outline:none;resize:vertical;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(184,144,46,.1);}
+.fg input.err{border-color:var(--rouge);background:#fff8f8;}
+.errmsg{font-size:11px;color:var(--rouge);margin-top:4px;display:none;}
+.errmsg.show{display:block;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.rdv-submit{width:100%;padding:13px;background:var(--ebene);color:var(--blanc);border:none;border-radius:var(--radius);font-family:var(--font-sans);font-size:14px;font-weight:700;cursor:pointer;transition:all .25s;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.rdv-submit:hover:not(:disabled){background:var(--or);color:var(--ebene);transform:translateY(-1px);box-shadow:var(--shadow-gold);}
+.rdv-submit:disabled{opacity:.6;cursor:not-allowed;}
+.rdv-note{display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;color:var(--gris);margin-top:10px;}
+.rdv-success-box{display:none;text-align:center;padding:32px 20px;}
+.rdv-success-box.show{display:block;}
+.rdv-success-box .check{font-size:48px;margin-bottom:16px;}
+.rdv-success-box h4{font-family:var(--font-serif);font-size:22px;color:var(--ebene);margin-bottom:10px;}
+.rdv-success-box p{font-size:14px;color:var(--gris);line-height:1.7;}
+
+/* STEPS */
+.steps-section{padding:90px 40px;background:var(--sable);}
+.steps-inner{max-width:1140px;margin:auto;}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:52px;background:var(--sable-mid);border-radius:6px;overflow:hidden;}
+.step-item{background:var(--blanc);padding:32px 22px;transition:all .3s;}
+.step-item:hover{background:var(--ebene);}
+.step-item:hover .step-n,.step-item:hover h4,.step-item:hover p{color:var(--blanc)!important;}
+.step-item:hover .step-n{background:var(--or)!important;color:var(--ebene)!important;}
+.step-n{width:40px;height:40px;border-radius:50%;background:var(--ebene);color:var(--blanc);font-family:var(--font-serif);font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:all .3s;}
+.step-item h4{font-family:var(--font-serif);font-size:16px;color:var(--ebene);margin-bottom:8px;transition:color .3s;}
+.step-item p{font-size:13px;color:var(--gris);line-height:1.65;transition:color .3s;}
+
+/* TEMOIGNAGES */
+.temoignages-section{padding:90px 40px;background:var(--ivoire);}
+.temoignages-inner{max-width:1140px;margin:auto;}
+.temoignages-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px;}
+.temoignage{background:var(--blanc);padding:32px;border-radius:6px;border:1px solid rgba(13,17,23,.06);position:relative;}
+.temoignage::before{content:'\201C';position:absolute;top:16px;right:24px;font-family:var(--font-serif);font-size:72px;color:rgba(184,144,46,.08);line-height:1;}
+.stars{color:var(--or);font-size:13px;margin-bottom:14px;}
+.temoignage p{font-size:14px;color:var(--gris);line-height:1.8;margin-bottom:20px;}
+.t-author{display:flex;align-items:center;gap:12px;}
+.t-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--ebene),var(--ebene-mid));display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:15px;font-weight:600;color:var(--or-pale);flex-shrink:0;}
+.t-author strong{font-size:13px;color:var(--ebene);display:block;}
+.t-author span{font-size:12px;color:var(--gris);}
+
+/* CTA */
+.cta-section{background:var(--ebene);padding:90px 40px;text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(184,144,46,.07),transparent);}
+.cta-section h2{position:relative;z-index:1;color:var(--blanc);margin-bottom:16px;}
+.cta-section>p{position:relative;z-index:1;font-size:15px;color:rgba(255,255,255,.5);margin-bottom:36px;}
+.cta-actions{position:relative;z-index:1;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{background:#070b12;padding:36px 40px;}
+.footer-inner{max-width:1140px;margin:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-logo{font-family:var(--font-serif);font-size:18px;color:var(--or-pale);}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.25);}
+.footer-links{display:flex;gap:22px;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.35);transition:color .2s;}
+.footer-links a:hover{color:var(--or-pale);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(7,11,18,.92);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto;backdrop-filter:blur(8px);}
+.modal-overlay.open{display:flex;animation:fadeIn .2s ease;}
+.modal{background:var(--blanc);border-radius:8px;width:100%;max-width:920px;overflow:hidden;margin:auto;position:relative;animation:fadeUp .35s cubic-bezier(.34,1.2,.64,1);box-shadow:var(--shadow-lg);}
+.modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:white;font-size:16px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.modal-close:hover{background:rgba(255,255,255,.3);}
+.modal-head{background:var(--ebene);padding:36px 40px 28px;position:relative;overflow:hidden;}
+.modal-head::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 90% 50%,rgba(184,144,46,.12),transparent);pointer-events:none;}
+.modal-head-in{position:relative;z-index:1;}
+.modal-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--or-pale);text-transform:uppercase;margin-bottom:12px;}
+.modal-head h2{font-family:var(--font-serif);font-size:clamp(20px,3vw,28px);color:var(--blanc);font-weight:600;line-height:1.3;margin-bottom:10px;}
+.modal-head p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;max-width:560px;}
+.modal-meta{display:flex;gap:20px;margin-top:20px;flex-wrap:wrap;align-items:center;}
+.modal-meta span{font-size:12px;color:rgba(255,255,255,.55);}
+.modal-price{margin-left:auto;background:var(--or);color:var(--ebene);font-family:var(--font-serif);font-size:22px;font-weight:700;padding:8px 18px;border-radius:var(--radius);white-space:nowrap;}
+.modal-body{display:grid;grid-template-columns:1fr 360px;}
+.modal-left{padding:32px;border-right:1px solid var(--sable);overflow-y:auto;max-height:60vh;}
+.modal-sec-title{font-family:var(--font-serif);font-size:14px;font-weight:600;color:var(--ebene);margin-bottom:14px;padding-bottom:7px;border-bottom:2px solid var(--or);display:inline-block;}
+.obj-list{list-style:none;margin-bottom:28px;}
+.obj-list li{display:flex;gap:12px;font-size:13px;color:var(--ebene);line-height:1.65;margin-bottom:9px;}
+.obj-list li::before{content:'✓';color:var(--or);font-weight:700;flex-shrink:0;}
+.mod-list{list-style:none;counter-reset:m;margin-bottom:28px;}
+.mod-list li{counter-increment:m;display:flex;gap:14px;font-size:13px;color:var(--gris);line-height:1.65;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid #f0ece4;}
+.mod-list li:last-child{border:none;}
+.mod-list li::before{content:counter(m,decimal-leading-zero);font-family:var(--font-mono);font-size:11px;color:var(--or);flex-shrink:0;margin-top:2px;}
+.modal-right{padding:28px 24px;background:#fafaf7;}
+.modal-form-title{font-family:var(--font-serif);font-size:17px;color:var(--ebene);margin-bottom:4px;}
+.modal-form-sub{font-size:12px;color:var(--gris);margin-bottom:18px;line-height:1.5;}
+.ph-group{display:flex;gap:8px;}
+.ph-group select{width:95px;flex-shrink:0;}
+.ph-group input{flex:1;}
+.pay-btn{width:100%;padding:13px;background:var(--or);color:var(--ebene);border:none;border-radius:var(--radius);font-family:var(--font-sans);font-size:14px;font-weight:700;cursor:pointer;transition:all .25s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.pay-btn:hover:not(:disabled){background:var(--or-vif);transform:translateY(-1px);box-shadow:var(--shadow-gold);}
+.pay-btn:disabled{opacity:.6;cursor:not-allowed;}
+.secure-note{display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;color:var(--gris);margin-top:10px;}
+
+/* SUCCESS */
+.success-overlay{position:fixed;inset:0;background:rgba(7,11,18,.94);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+.success-overlay.open{display:flex;animation:fadeIn .2s ease;}
+.success-modal{background:var(--blanc);border-radius:8px;padding:52px 44px;max-width:480px;width:90%;text-align:center;animation:fadeUp .4s cubic-bezier(.34,1.2,.64,1);box-shadow:var(--shadow-lg);}
+.success-check{width:80px;height:80px;border-radius:50%;margin:0 auto 24px;background:linear-gradient(135deg,var(--or),var(--or-pale));display:flex;align-items:center;justify-content:center;font-size:36px;}
+.success-modal h2{font-family:var(--font-serif);font-size:28px;color:var(--ebene);margin-bottom:10px;}
+.success-modal p{font-size:14px;color:var(--gris);line-height:1.7;}
+.s-formation{font-family:var(--font-serif);font-size:17px;color:var(--ebene);font-weight:600;margin:6px 0 10px;}
+.s-hint{font-size:13px;color:#bbb;margin-bottom:4px;}
+.s-divider{height:1px;background:var(--sable);margin:24px 0;}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;background:#25d366;color:white;font-family:var(--font-sans);font-weight:700;font-size:14px;border-radius:var(--radius);text-decoration:none;transition:all .2s;margin-bottom:12px;}
+.wa-btn:hover{background:#128c7e;transform:translateY(-1px);}
+.close-link{background:none;border:none;font-size:12px;color:var(--gris);text-decoration:underline;cursor:pointer;font-family:var(--font-sans);}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.conseil-grid{grid-template-columns:1fr;}.conseil-right{order:-1;}.rdv-card{max-width:520px;}}
+@media(max-width:900px){.hero-inner,.formations-header{grid-template-columns:1fr;gap:40px;}.formations-grid{grid-template-columns:1fr;}.steps-grid{grid-template-columns:1fr 1fr;gap:2px;}.temoignages-grid{grid-template-columns:1fr;}.hero{padding:60px 20px;}.formations-section,.temoignages-section,.steps-section,.cta-section,.conseil-section{padding:60px 20px;}.navbar{padding:0 20px;}}
+@media(max-width:768px){.modal-body{grid-template-columns:1fr;}.modal-left{border-right:none;border-bottom:1px solid var(--sable);max-height:none;padding:22px 20px;}.modal-right{padding:22px 20px;}.modal-head{padding:28px 20px 22px;}.modal-meta{flex-direction:column;align-items:flex-start;gap:10px;}.modal-price{margin-left:0;}.nav-links{display:none;}.row2{grid-template-columns:1fr;}.footer-inner{flex-direction:column;text-align:center;}}
+@media(max-width:480px){.steps-grid{grid-template-columns:1fr;}.hero-actions{flex-direction:column;align-items:flex-start;}.success-modal{padding:36px 24px;}}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-mark">M</div>
+      <div class="logo-text">MAT <span>Academy</span></div>
+    </div>
+    <nav><ul class="nav-links">
+      <li><a href="#formations">Formations</a></li>
+      <li><a href="#conseil">Conseil</a></li>
+      <li><a href="#etapes">Processus</a></li>
+      <li><a href="#temoignages">Témoignages</a></li>
+    </ul></nav>
+    <button class="nav-cta" onclick="openRdv()">Prendre RDV</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div><div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-kicker"><span class="kicker-dot"></span> Inscriptions ouvertes · Session 2025</div>
+      <h1>Développez votre expertise en <em>Gestion de Projet</em> avec des professionnels certifiés</h1>
+      <p class="hero-sub">4 formations de haut niveau conçues pour les gestionnaires, coordinateurs et chefs de projet d'Afrique centrale qui veulent piloter leurs projets avec rigueur et impact mesurable.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('formations').scrollIntoView({behavior:'smooth'})">⭐ Voir les formations</button>
+        <button class="btn-ghost" onclick="openRdv()">📅 Prendre un rendez-vous</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-val">4</div><div class="stat-lbl">Formations certifiantes</div></div>
+        <div><div class="stat-val">200+</div><div class="stat-lbl">Participants formés</div></div>
+        <div><div class="stat-val">98%</div><div class="stat-lbl">Taux de satisfaction</div></div>
+        <div><div class="stat-val">10+</div><div class="stat-lbl">Années d'expertise</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="hero-panel">
+        <div class="hero-panel-header"><h3>Accès rapide aux formations</h3><p>Sélectionnez pour voir les détails et vous inscrire</p></div>
+        <div class="hero-panel-body">
+          <button class="panel-item" onclick="openModal(0)"><span>🎯</span><span class="panel-item-name">Gestion de Projet</span><span class="panel-item-price">50 000 F</span></button>
+          <button class="panel-item" onclick="openModal(1)"><span>📊</span><span class="panel-item-name">Gestion Axée sur les Résultats</span><span class="panel-item-price">55 000 F</span></button>
+          <button class="panel-item" onclick="openModal(2)"><span>🗓️</span><span class="panel-item-name">Planification & Suivi Opérationnel</span><span class="panel-item-price">50 000 F</span></button>
+          <button class="panel-item" onclick="openModal(3)"><span>🔍</span><span class="panel-item-name">Suivi & Évaluation des Projets</span><span class="panel-item-price">55 000 F</span></button>
+          <div class="panel-sep"></div>
+          <button class="panel-rdv" onclick="openRdv()">📅 Parler à un conseiller · Prendre RDV</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<div class="certs-strip">
+  <div class="certs-inner">
+    <span class="certs-label">Référentiels</span>
+    <span class="cert-item"><span class="cert-star">★</span> PMI / PMBOK</span>
+    <span class="cert-item"><span class="cert-star">★</span> PRINCE2</span>
+    <span class="cert-item"><span class="cert-star">★</span> GAR / RBM</span>
+    <span class="cert-item"><span class="cert-star">★</span> Critères OCDE-CAD</span>
+    <span class="cert-item"><span class="cert-star">★</span> S&E / MEAL</span>
+  </div>
+</div>
+
+<!-- FORMATIONS -->
+<section class="formations-section" id="formations">
+  <div class="formations-header reveal">
+    <div>
+      <div class="section-eyebrow">Nos programmes</div>
+      <h2 class="section-heading">4 formations pour <em>exceller</em> dans vos projets</h2>
+    </div>
+    <p class="formations-header-right">Des formations pratiques animées par des experts certifiés, spécialement conçues pour le contexte des organisations d'Afrique centrale.</p>
+  </div>
+  <div class="formations-grid">
+    <div class="fcard reveal" onclick="openModal(0)">
+      <div class="fcard-ribbon"></div>
+      <div class="fcard-inner">
+        <div class="fcard-top"><div class="fcard-icon">🎯</div><span class="fcard-num">01</span></div>
+        <h3>Gestion de Projet</h3>
+        <p class="fcard-desc">Cycle de vie complet du projet, outils d'identification, planification (cadre logique, WBS, Gantt, RACI, Budget), gouvernance, leadership et clôture selon PMI et PRINCE2.</p>
+      </div>
+      <div class="fcard-footer"><div class="fcard-meta"><span>📅 3 jours</span><span>👥 Toute organisation</span></div><span class="fcard-price">100 000 F</span></div>
+    </div>
+    <div class="fcard reveal" onclick="openModal(1)" style="transition-delay:.1s">
+      <div class="fcard-ribbon"></div>
+      <div class="fcard-inner">
+        <div class="fcard-top"><div class="fcard-icon">📊</div><span class="fcard-num">02</span></div>
+        <h3>Gestion Axée sur les Résultats</h3>
+        <p class="fcard-desc">Théorie de changement, modélisation des 3R, cadre de mesure de rendement, budgétisation axée sur les résultats, alignement bailleurs et rapportage GAR.</p>
+      </div>
+      <div class="fcard-footer"><div class="fcard-meta"><span>📅 4 jours</span><span>👥 ONG / Secteur public</span></div><span class="fcard-price">100 000 F</span></div>
+    </div>
+    <div class="fcard reveal" onclick="openModal(2)" style="transition-delay:.15s">
+      <div class="fcard-ribbon"></div>
+      <div class="fcard-inner">
+        <div class="fcard-top"><div class="fcard-icon">🗓️</div><span class="fcard-num">03</span></div>
+        <h3>Planification & Suivi Opérationnel</h3>
+        <p class="fcard-desc">KPI et indicateurs, cycles de contrôle, mécanismes de suivi opérationnel, projets sensibles au changement climatique et aux chaînes de valeur agricoles.</p>
+      </div>
+      <div class="fcard-footer"><div class="fcard-meta"><span>📅 3 jours</span><span>👥 Coordinateurs</span></div><span class="fcard-price">150 000 F</span></div>
+    </div>
+    <div class="fcard reveal" onclick="openModal(3)" style="transition-delay:.2s">
+      <div class="fcard-ribbon"></div>
+      <div class="fcard-inner">
+        <div class="fcard-top"><div class="fcard-icon">🔍</div><span class="fcard-num">04</span></div>
+        <h3>Suivi & Évaluation des Projets</h3>
+        <p class="fcard-desc">Système MEAL, plan de S&E, critères OCDE-CAD, redevabilité, apprentissage, sauvegarde environnementale et sociale, mobilisation de ressources. Niveau I.</p>
+      </div>
+      <div class="fcard-footer"><div class="fcard-meta"><span>📅 4 jours</span><span>👥 Responsables S&E</span></div><span class="fcard-price">150 000 F</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSEIL & RDV -->
+<section class="conseil-section" id="conseil">
+  <div class="conseil-bg"></div>
+  <div class="conseil-inner">
+    <div class="conseil-grid">
+      <div class="conseil-left reveal">
+        <div class="section-eyebrow" style="color:var(--or-vif)">Conseil personnalisé</div>
+        <h2 class="section-heading" style="color:var(--blanc);margin-bottom:20px;">Parlez à un <em>conseiller expert</em> avant de vous inscrire</h2>
+        <p>Notre équipe est disponible pour vous orienter vers la formation la plus adaptée à votre profil, vos objectifs et votre organisation.</p>
+        <div class="conseil-feats">
+          <div class="cfeat"><div class="cfeat-icon">🎯</div><div><h4>Orientation personnalisée</h4><p>Un conseiller analyse votre profil et vous recommande la formation la plus adaptée.</p></div></div>
+          <div class="cfeat"><div class="cfeat-icon">📞</div><div><h4>Rendez-vous par téléphone ou WhatsApp</h4><p>Choisissez votre créneau préféré. Nos conseillers s'adaptent à votre disponibilité.</p></div></div>
+          <div class="cfeat"><div class="cfeat-icon">🏢</div><div><h4>Solutions sur mesure pour organisations</h4><p>Formations intra-entreprise, packages groupes, programmes personnalisés pour vos équipes.</p></div></div>
+          <div class="cfeat"><div class="cfeat-icon">✅</div><div><h4>Réponse garantie sous 24 heures</h4><p>Votre demande est transmise immédiatement. Un conseiller vous contacte sous 24h.</p></div></div>
+        </div>
+        <div style="margin-top:28px;padding:18px 20px;background:rgba(184,144,46,.06);border:1px solid rgba(184,144,46,.15);border-radius:4px;">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--or-vif);margin-bottom:10px;">📍 Nos locaux</div>
+          <p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;"><strong style="color:var(--or-pale);">06 Rue Bilongui, La Frontière</strong><br>Moungali — Arrêt La Frontière<br>Croisement Avenue de la Base &amp; Avenue Contre-Rail Diata<br>Brazzaville, Congo</p>
+        </div>
+      </div>
+      <div class="conseil-right" reveal" style="transition-delay:.15s" id="rdv-section">
+        <div class="rdv-card">
+          <div class="rdv-head"><h3>Réserver un rendez-vous</h3><p>Gratuit · Sans engagement · Réponse sous 24h</p></div>
+          <div class="rdv-body">
+            <div id="rdvFormWrap">
+              <div class="rdv-tabs">
+                <button class="rdv-tab active" onclick="setTab('rdv',this)">📅 RDV</button>
+                <button class="rdv-tab" onclick="setTab('contact',this)">💬 Être contacté</button>
+                <button class="rdv-tab" onclick="setTab('groupe',this)">🏢 Groupe</button>
+              </div>
+              <form id="rdvForm" onsubmit="submitRdv(event)" novalidate>
+                <input type="hidden" id="rdvType" value="Rendez-vous">
+                <div class="row2">
+                  <div class="fg"><label>Prénom <span class="req">*</span></label><input id="rdvPrenom" placeholder="Jean"><span class="errmsg" id="rdvPrenom-err">Requis</span></div>
+                  <div class="fg"><label>Nom <span class="req">*</span></label><input id="rdvNom" placeholder="Dupont"><span class="errmsg" id="rdvNom-err">Requis</span></div>
+                </div>
+                <div class="fg"><label>Email <span class="req">*</span></label><input id="rdvEmail" type="email" placeholder="jean@organisation.org"><span class="errmsg" id="rdvEmail-err">Email invalide</span></div>
+                <div class="fg"><label>Téléphone / WhatsApp <span class="req">*</span></label><input id="rdvTel" placeholder="+242 06 123 45 67"><span class="errmsg" id="rdvTel-err">Requis</span></div>
+                <div class="fg"><label>Organisation</label><input id="rdvOrg" placeholder="Votre organisation (optionnel)"></div>
+                <div class="fg">
+                  <label>Formation d'intérêt</label>
+                  <select id="rdvFormation">
+                    <option value="">— Sélectionner (optionnel) —</option>
+                    <option>Gestion de Projet</option>
+                    <option>Gestion Axée sur les Résultats (GAR)</option>
+                    <option>Planification et Suivi Opérationnel</option>
+                    <option>Suivi & Évaluation des Projets</option>
+                    <option>Plusieurs formations / Package groupe</option>
+                    <option>Je ne sais pas encore</option>
+                  </select>
+                </div>
+                <div class="fg" id="rdvCreneauWrap">
+                  <label>Créneau préféré</label>
+                  <select id="rdvCreneau">
+                    <option value="">— Choisir un créneau —</option>
+                    <option>Matin (8h – 12h)</option>
+                    <option>Après-midi (14h – 17h)</option>
+                    <option>Fin de journée (17h – 19h)</option>
+                    <option>Flexible / à votre convenance</option>
+                  </select>
+                </div>
+                <div class="fg"><label>Message (optionnel)</label><textarea id="rdvMessage" rows="3" placeholder="Décrivez votre situation ou vos besoins spécifiques..."></textarea></div>
+                <button type="submit" class="rdv-submit" id="rdvBtn">📅 Confirmer ma demande</button>
+                <p class="rdv-note">🔒 Vos données sont confidentielles</p>
+              </form>
+            </div>
+            <div class="rdv-success-box" id="rdvSuccess">
+              <div class="check">✅</div>
+              <h4>Demande enregistrée !</h4>
+              <p>Merci <strong id="rdvSuccessPrenom"></strong>, votre demande a bien été transmise.<br><br>Un conseiller MAT Academy vous contactera dans les <strong>24 heures</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÉTAPES -->
+<section class="steps-section" id="etapes">
+  <div class="steps-inner reveal">
+    <div class="section-eyebrow">Processus</div>
+    <h2 class="section-heading">De l'inscription au <em>certificat</em> en 4 étapes</h2>
+    <div class="steps-grid">
+      <div class="step-item"><div class="step-n">1</div><h4>Choisissez votre formation</h4><p>Consultez les programmes détaillés et choisissez la formation adaptée à vos objectifs.</p></div>
+      <div class="step-item"><div class="step-n">2</div><h4>Inscrivez-vous en ligne</h4><p>Remplissez le formulaire et payez via Mobile Money (MTN, Orange, Airtel) grâce à Makétou.</p></div>
+      <div class="step-item"><div class="step-n">3</div><h4>Rejoignez le groupe</h4><p>Accédez au groupe WhatsApp pour recevoir ressources, horaires et informations pratiques.</p></div>
+      <div class="step-item"><div class="step-n">4</div><h4>Obtenez votre certificat</h4><p>Recevez votre certificat de participation reconnu par nos organisations partenaires.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="temoignages-section" id="temoignages">
+  <div class="temoignages-inner">
+    <div class="reveal"><div class="section-eyebrow">Témoignages</div><h2 class="section-heading">Ce que disent nos <em>participants</em></h2></div>
+    <div class="temoignages-grid">
+      <div class="temoignage reveal"><div class="stars">★★★★★</div><p>La formation Gestion de Projet m'a donné une vision complète. Les outils sont directement applicables. Le cadre logique et le RACI ont transformé ma façon de travailler.</p><div class="t-author"><div class="t-avatar">JM</div><div><strong>Jean M.</strong><span>Chef de projet — Brazzaville</span></div></div></div>
+      <div class="temoignage reveal" style="transition-delay:.1s"><div class="stars">★★★★★</div><p>La formation GAR a transformé ma façon de rendre compte aux bailleurs. La théorie de changement et le cadre de mesure de rendement sont des outils indispensables.</p><div class="t-author"><div class="t-avatar">SK</div><div><strong>Sarah K.</strong><span>Coordinatrice — ONG internationale</span></div></div></div>
+      <div class="temoignage reveal" style="transition-delay:.2s"><div class="stars">★★★★★</div><p>Excellent niveau pédagogique. La formation S&E m'a permis de structurer tout notre système MEAL. Je recommande vivement à tous les responsables de programmes.</p><div class="t-author"><div class="t-avatar">PN</div><div><strong>Patrick N.</strong><span>Responsable S&E — Secteur public</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="section-heading reveal" style="color:var(--blanc)">Prêt à faire passer vos projets<br>au <em>niveau supérieur</em> ?</h2>
+  <p class="reveal">Rejoignez plus de 200 professionnels qui ont transformé leur pratique avec MAT Academy.</p>
+  <div class="cta-actions reveal">
+    <button class="btn-primary" onclick="document.getElementById('formations').scrollIntoView({behavior:'smooth'})">Découvrir les formations</button>
+    <button class="btn-ghost" onclick="openRdv()">Parler à un conseiller</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">MAT Academy</div>
+    <div class="footer-copy">
+  © 2025 MAT Academy · Formation professionnelle<br>
+  <span style="opacity:.5;">📍 06 Rue Bilongui, La Frontière, Moungali — Arrêt La Frontière, croisement Avenue de la Base &amp; Avenue Contre-Rail Diata · Brazzaville, Congo</span>
+</div>
+    <div class="footer-links"><a href="#formations">Formations</a><a href="#conseil">Conseil</a><a href="#temoignages">Témoignages</a></div>
+  </div>
+</footer>
+
+<!-- MODAL FORMATION -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-head">
+      <div class="modal-head-in">
+        <div class="modal-eyebrow" id="mEyebrow"></div>
+        <h2 id="mTitle"></h2>
+        <p id="mDesc"></p>
+        <div class="modal-meta">
+          <span id="mDuree"></span><span id="mPublic"></span><span id="mLieu"></span><span id="mHoraires"></span>
+          <span class="modal-price" id="mPrice"></span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-left">
+        <h4 class="modal-sec-title">Objectifs de la formation</h4>
+        <ul class="obj-list" id="mObj"></ul>
+        <h4 class="modal-sec-title">Programme & thématiques</h4>
+        <ol class="mod-list" id="mMod"></ol>
+        <h4 class="modal-sec-title">À l'issue, je suis capable de…</h4>
+        <ul class="obj-list" id="mComp"></ul>
+      </div>
+      <div class="modal-right">
+        <h4 class="modal-form-title">S'inscrire maintenant</h4>
+        <p class="modal-form-sub">Remplissez le formulaire — vous serez redirigé vers le paiement sécurisé</p>
+        <form id="mForm" onsubmit="handleSubmit(event)" novalidate>
+          <input type="hidden" id="mFormationName">
+          <div class="row2">
+            <div class="fg"><label>Prénom <span class="req">*</span></label><input id="mP" placeholder="Jean"><span class="errmsg" id="mP-err">Requis</span></div>
+            <div class="fg"><label>Nom <span class="req">*</span></label><input id="mN" placeholder="Dupont"><span class="errmsg" id="mN-err">Requis</span></div>
+          </div>
+          <div class="fg"><label>Email <span class="req">*</span></label><input id="mE" type="email" placeholder="jean@email.com"><span class="errmsg" id="mE-err">Email invalide</span></div>
+          <div class="fg"><label>Téléphone <span class="req">*</span></label>
+            <div class="ph-group">
+              <select id="mInd"><option value="+242">🇨🇬 +242</option><option value="+237">🇨🇲 +237</option><option value="+243">🇨🇩 +243</option><option value="+241">🇬🇦 +241</option><option value="+236">🇨🇫 +236</option><option value="+33">🇫🇷 +33</option></select>
+              <input id="mT" type="tel" placeholder="06 123 45 67">
+            </div>
+            <span class="errmsg" id="mT-err">Numéro requis</span>
+          </div>
+          <div class="fg"><label>Ville <span class="req">*</span></label><input id="mV" placeholder="Brazzaville"><span class="errmsg" id="mV-err">Requis</span></div>
+          <button type="submit" class="pay-btn" id="payBtn">💳 Procéder au paiement</button>
+          <p class="secure-note">🔒 Paiement sécurisé · Makétou Mobile Money</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="success-check">✓</div>
+    <h2>Inscription enregistrée !</h2>
+    <p>Merci <strong id="sPrenom"></strong>, votre inscription à</p>
+    <p class="s-formation" id="sFormation"></p>
+    <p class="s-hint">Redirection vers le paiement en cours...</p>
+    <div class="s-divider"></div>
+    <p style="font-size:13px;color:var(--gris);margin-bottom:14px;">Rejoignez le groupe WhatsApp :</p>
+    <a href="https://chat.whatsapp.com/EuyIBy1YB7z9dHT68cSoRR" target="_blank" class="wa-btn">
+      <svg width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Rejoindre le groupe WhatsApp
+    </a>
+    <button class="close-link" onclick="closeSuccess()">Fermer</button>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════
+// DONNÉES DES FORMATIONS
+// ════════════════════════════════════════════════
+const FORMATIONS = [
+  {
+    titre:'Gestion de Projet', numero:'01', icon:'🎯',
+    prix:'100 000 FCFA', inscription:'25 000 FCFA', duree:'📅 3 jours (24h)', public:'👥 Toute organisation', lieu:'📍 Brazzaville · Présentiel',
+    horaires:'🕕 Lun–Ven 18h | Sam 10h',
+    desc:"Maîtrisez l'ensemble du cycle de vie d'un projet selon les référentiels PMI et PRINCE2. De l'identification à la clôture, avec les outils, processus et compétences de leadership nécessaires.",
+    objectifs:["Acquérir les bases de la gestion de projet","Maîtriser le cycle de vie de projet","Comprendre les outils et les processus d'analyse en projet","Identifier un projet pertinent et définir ses objectifs","Comprendre le pilotage et la gouvernance de projet","Appréhender le Suivi-évaluation et la clôture de projet","Se préparer vers les disciplines spécialisées de la gestion de projet"],
+    modules:["Fondamentaux de la gestion de projet","Typologie et continuum des projets","Cycles de vie des projets","Techniques et outils d'identification de projets","Parties prenantes : identification, typologie, analyse et gestion","Élaboration de plan : cadre logique, WBS, PERT, Gantt, RACI, Budget","Faisabilité et gestion des risques","Gouvernance, alignement et ancrage des projets","Leadership et gestion d'équipe de projet","Suivi, évaluation et clôture des projets","Communication et mobilisation des ressources"],
+    competences:["Identifier des projets pertinents en fonction des besoins organisationnels","Développer des idées ou des concepts de projets innovants","Contribuer à la formulation et la rédaction d'un projet","Identifier les étapes et études nécessaires dans la phase de préparation","Conduire un projet ou une équipe de projet","Décrire les processus de contrôle, de suivi et d'évaluation","Valoriser des financements acquis et mobiliser des ressources"],
+    lien:'https://mat-academy-8.mymaketou.store/products/gestion-de-projet',
+  },
+  {
+    titre:'Gestion Axée sur les Résultats (GAR)', numero:'02', icon:'📊',
+    prix:'100 000 FCFA', inscription:'25 000 FCFA', duree:'📅 4 jours (32h)', public:'👥 ONG / Secteur public', lieu:'📍 Brazzaville · Présentiel',
+    horaires:'🕕 Lun–Ven 18h | Sam 10h',
+    desc:"Planification, suivi et rapportage orientés résultats. Maîtrisez la théorie de changement, le cadre logique, l'alignement avec les bailleurs et la budgétisation axée sur les résultats.",
+    objectifs:["Connaître le pourquoi de la GAR","Comprendre la nuance entre la gestion classique et axée sur les résultats","Maîtriser les trois principales étapes de la GAR : planification, suivi, évaluation","Comprendre l'intérêt de l'alignement des projets avec les États et les bailleurs","Développer / renforcer les capacités de rapportage en projet","Apprendre comment utiliser la GAR dans une organisation"],
+    modules:["Historique, principes et concepts fondamentaux de la GAR","Alignement et ancrage institutionnel des investissements publics et parapublics","Théorie de changement","Modélisation logique et équilibre des 3R","Risques : analyse, registre et gestion intégrée","Cadre de mesure de rendement (CMR)","Plan d'action budgétisé et Budgétisation axée sur les résultats (BAR)","Suivi des résultats et Évaluation","Rapportage des résultats selon la GAR","Exercices et études de cas"],
+    competences:["Définir des résultats escomptés réalistes et fondés sur des analyses","Déterminer clairement les bénéficiaires d'un investissement / projet","Concevoir des projets qui répondent à des besoins appropriés et analysés","Faire le suivi des progrès en fonction des résultats et des ressources utilisées","Déterminer et gérer les risques d'un projet en tenant compte des résultats","Capitaliser des leçons et les intégrer au processus décisionnel","Présenter des rapports sur les résultats obtenus et les ressources utilisées"],
+    lien:'https://mat-academy-8.mymaketou.store/products/gestion-de-projet',
+  },
+  {
+    titre:'Planification et Suivi Opérationnel des Projets', numero:'03', icon:'🗓️',
+    prix:'150 000 FCFA', inscription:'25 000 FCFA', duree:'📅 3 jours (24h)', public:'👥 Coordinateurs / Équipes', lieu:'📍 Brazzaville · Présentiel',
+    horaires:'🕕 Lun–Ven 18h | Sam 10h',
+    desc:"Outils et mécanismes de planification et de suivi opérationnel. KPI, indicateurs, cycles de contrôle, projets sensibles aux changements climatiques et aux chaînes de valeur agricoles.",
+    objectifs:["Comprendre les fondements de la planification et du suivi en projet","Comprendre la place de la planification et le rôle du suivi","Maîtriser les outils de planification et de suivi opérationnel","Apprendre à déployer un mécanisme de planification et de suivi","Comprendre la planification et le suivi des projets sensibles aux changements climatiques","Maîtriser la planification des projets d'appui aux chaînes de valeur agricoles"],
+    modules:["Fondements de la planification et du suivi dans les organisations","Processus de planification et de suivi en projet","Cycle de suivi et de contrôle de projet","Indicateurs et KPI : définition, typologie, formulation, mesure et utilisation","Structure du mécanisme de suivi et cycle de contrôle de projet","Méthodes, outils et livrables de planification et du suivi opérationnel","Conduite de la planification et du suivi opérationnel en projet","Planification et suivi des projets sensibles aux changements climatiques","Planification et suivi des projets d'appui aux chaînes de valeur agricoles"],
+    competences:["Définir des résultats escomptés réalistes et fondés sur des analyses","Élaborer / utiliser des outils de planification d'un projet","Faire le suivi des progrès en fonction des résultats et des ressources","Définir et mesurer des indicateurs pertinents pour le suivi","Organiser et opérationnaliser une fonction de suivi de projet","Capitaliser des leçons et les intégrer au processus décisionnel","Présenter des rapports sur les résultats obtenus et les ressources utilisées"],
+    lien:'https://mat-academy-8.mymaketou.store/products/gestion-de-projet',
+  },
+  {
+    titre:'Suivi & Évaluation des Projets (Niveau I)', numero:'04', icon:'🔍',
+    prix:'150 000 FCFA', inscription:'25 000 FCFA', duree:'📅 4 jours (32h)', public:'👥 Responsables S&E', lieu:'📍 Brazzaville · Présentiel',
+    horaires:'🕕 Lun–Ven 18h | Sam 10h',
+    desc:"Système MEAL complet : plan de S&E, indicateurs, modèles d'évaluation, critères OCDE-CAD, redevabilité, apprentissage, sauvegarde environnementale et sociale.",
+    objectifs:["Comprendre les concepts clés du Suivi, Évaluation, Redevabilité et Apprentissage","Maîtriser les approches et les méthodes d'évaluation","Décrire la structuration d'un plan de suivi-évaluation","Comprendre le déroulement d'un processus d'évaluation","Cerner la fonction-métier de suivi-évaluation","Se préparer à la gestion des données et des logiciels de S&E"],
+    modules:["Introduction au suivi, évaluation, redevabilité et apprentissage","Cadre conceptuel et principes du suivi-évaluation","Objectif et rôle de la fonction de suivi-évaluation","Périmètre et structure du système de suivi-évaluation","Plan de suivi-évaluation","Sélection des indicateurs, des valeurs de référence et des cibles","Modèles et approches d'évaluation","Évaluation des projets : types, critères OCDE-CAD, conception, méthodes et outils","Éthique et bons principes de suivi et d'évaluation","Dimension redevabilité, apprentissage et principe « Do No Harm »","Interdépendance S&E et sauvegarde environnementale, sociale et communication","Métier de suivi-évaluation : ce qu'il faut savoir en équipe de projet"],
+    competences:["Comprendre les principes, finalités et approches du suivi et de l'évaluation","Situer le Suivi-Évaluation dans la gestion axée sur les résultats","Définir le plan ou l'AMI d'un système de S&E adapté au projet / programme","Sélectionner et appliquer différents modèles et approches d'évaluation","Contribuer à la réalisation d'une conception d'évaluation","Rédiger et présenter des rapports de S&E orientés vers la prise de décision","Promouvoir l'apprentissage, la capitalisation et la redevabilité"],
+    lien:'https://mat-academy-8.mymaketou.store/products/gestion-de-projet',
+  },
+];
+
+// ════════════════════════════════════════════════
+// GOOGLE SHEETS — APPS SCRIPT
+// ➡️ Instructions pour créer votre script :
+//    1. Allez sur script.google.com
+//    2. Créez un nouveau projet
+//    3. Collez le code Apps Script fourni plus bas
+//    4. Déployez en tant que "Application Web"
+//    5. Copiez l'URL et remplacez ci-dessous
+// ════════════════════════════════════════════════
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7cK30E9G2VHn5h9M4iGO3fKNbfCubBcat-sVR7MYoj9LEevH05jSdbs6vHfnx0lk/exec';
+
+// ════════════════════════════════════════════════
+// TABS RDV
+// ════════════════════════════════════════════════
+function setTab(type, el) {
+  document.querySelectorAll('.rdv-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('rdvType').value = {rdv:'Rendez-vous', contact:'Être contacté', groupe:'Formation groupe'}[type];
+  document.getElementById('rdvCreneauWrap').style.display = type==='rdv' ? '' : 'none';
+  document.getElementById('rdvMessage').placeholder = {
+    rdv:'Décrivez votre situation ou posez vos questions...',
+    contact:'Décrivez vos besoins — un conseiller vous rappellera...',
+    groupe:'Nombre de participants, organisation, dates souhaitées...',
+  }[type];
+}
+
+// ════════════════════════════════════════════════
+// SUBMIT RDV → GOOGLE SHEETS
+// ════════════════════════════════════════════════
+async function submitRdv(e) {
+  e.preventDefault();
+  const get = id => document.getElementById(id);
+  const prenom=get('rdvPrenom').value.trim(), nom=get('rdvNom').value.trim();
+  const email=get('rdvEmail').value.trim(), tel=get('rdvTel').value.trim();
+  let ok=true;
+  const v=(id,test)=>{const el=get(id),er=get(id+'-err');if(!test(el.value.trim())){el.classList.add('err');er.classList.add('show');ok=false;}else{el.classList.remove('err');er.classList.remove('show');}};
+  v('rdvPrenom',x=>x.length>=2); v('rdvNom',x=>x.length>=2);
+  v('rdvEmail',x=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x)); v('rdvTel',x=>x.length>=6);
+  if(!ok) return;
+  const btn=get('rdvBtn'); btn.textContent='⏳ Envoi en cours...'; btn.disabled=true;
+  const payload={
+    type:get('rdvType').value, prenom, nom, email, tel,
+    organisation:get('rdvOrg').value.trim(),
+    formation:get('rdvFormation').value,
+    creneau:get('rdvCreneau').value,
+    message:get('rdvMessage').value.trim(),
+    date:new Date().toLocaleString('fr-FR'),
+  };
+  try {
+    await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  } catch(err){ console.warn('Envoi:', err); }
+  get('rdvFormWrap').style.display='none';
+  get('rdvSuccessPrenom').textContent=prenom;
+  get('rdvSuccess').classList.add('show');
+}
+
+function openRdv(){
+  document.getElementById('conseil').scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>document.getElementById('rdvPrenom').focus(),700);
+}
+
+// ════════════════════════════════════════════════
+// MODAL FORMATION
+// ════════════════════════════════════════════════
+function openModal(i) {
+  const f=FORMATIONS[i], g=id=>document.getElementById(id);
+  g('mEyebrow').textContent=`Formation ${f.numero} · ${f.icon}`;
+  g('mTitle').textContent=f.titre; g('mDesc').textContent=f.desc;
+  g('mDuree').textContent=f.duree; g('mPublic').textContent=f.public;
+  g('mLieu').textContent=f.lieu;
+  if(f.horaires){ const h=document.getElementById('mHoraires'); if(h) h.textContent=f.horaires; }
+  g('mPrice').innerHTML=f.prix+'<br><small style="font-size:13px;font-weight:400;opacity:.8;">Inscription : '+f.inscription+'</small>';
+  g('mFormationName').value=f.titre;
+  g('mObj').innerHTML=f.objectifs.map(o=>`<li>${o}</li>`).join('');
+  g('mMod').innerHTML=f.modules.map(m=>`<li>${m}</li>`).join('');
+  g('mComp').innerHTML=f.competences.map(c=>`<li>${c}</li>`).join('');
+  g('mForm').reset();
+  document.querySelectorAll('#mForm .errmsg').forEach(e=>e.classList.remove('show'));
+  document.querySelectorAll('#mForm input').forEach(e=>e.classList.remove('err'));
+  g('payBtn').innerHTML='💳 Procéder au paiement'; g('payBtn').disabled=false;
+  g('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
+function closeSuccess(){document.getElementById('successOverlay').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeSuccess();}});
+
+// ════════════════════════════════════════════════
+// FORMULAIRE PAIEMENT
+// ════════════════════════════════════════════════
+function validateModal() {
+  let ok=true;
+  [{id:'mP',test:v=>v.trim().length>=2},{id:'mN',test:v=>v.trim().length>=2},{id:'mE',test:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},{id:'mT',test:v=>v.trim().length>=5},{id:'mV',test:v=>v.trim().length>=2}]
+  .forEach(({id,test})=>{
+    const el=document.getElementById(id),er=document.getElementById(id+'-err');
+    if(!test(el.value)){el.classList.add('err');er.classList.add('show');ok=false;}
+    else{el.classList.remove('err');er.classList.remove('show');}
+  });
+  return ok;
+}
+['mP','mN','mE','mT','mV'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',()=>{document.getElementById(id).classList.remove('err');document.getElementById(id+'-err').classList.remove('show');});
+});
+function handleSubmit(e){
+  e.preventDefault(); if(!validateModal()) return;
+  const prenom=document.getElementById('mP').value.trim();
+  const formation=document.getElementById('mFormationName').value;
+  const f=FORMATIONS.find(f=>f.titre===formation)||FORMATIONS[0];
+  const btn=document.getElementById('payBtn');
+  btn.innerHTML='⏳ Redirection...'; btn.disabled=true;
+  document.getElementById('sPrenom').textContent=prenom;
+  document.getElementById('sFormation').textContent=formation;
+  closeModal();
+  document.getElementById('successOverlay').classList.add('open');
+  setTimeout(()=>window.open(f.lien,'_blank'),2000);
+}
+
+// ════════════════════════════════════════════════
+// SCROLL REVEAL
+// ════════════════════════════════════════════════
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
